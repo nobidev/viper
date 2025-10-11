@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/nobidev/mapstructure/v2"
 	"github.com/sagikazarmark/locafero"
 	"github.com/spf13/afero"
 	"github.com/spf13/cast"

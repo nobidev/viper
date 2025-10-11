@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0
-	github.com/go-viper/mapstructure/v2 v2.4.0
+	github.com/nobidev/mapstructure/v2 v2.5.1-0.20260129203612-fdbf0dc67706
 	github.com/pelletier/go-toml/v2 v2.2.4
 	github.com/sagikazarmark/locafero v0.12.0
 	github.com/spf13/afero v1.15.0
