@@ -87,6 +87,13 @@ func DecodeStrict() DecoderConfigOption {
 	)
 }
 
+func DecodeMethods() DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		c.DefaultsMethodName = "Defaults"
+		c.ValidatesMethodName = "Validates"
+	}
+}
+
 // DecodeHook returns a DecoderConfigOption which overrides the default
 // DecoderConfig.DecodeHook value, the default is:
 //
@@ -105,6 +112,7 @@ func DecodeDefault() DecoderConfigOption {
 		DecodeTagName("viper"),
 		DecodeStrict(),
 		DecodeDecodeNil(true),
+		DecodeMethods(),
 	)
 }
 
@@ -180,6 +188,7 @@ type Viper struct {
 	env            map[string][]string
 	aliases        map[string]string
 	typeByDefValue bool
+	keepEmptyValue bool
 
 	onConfigChange func(fsnotify.Event)
 
@@ -729,6 +738,12 @@ func SetTypeByDefaultValue(enable bool) { v.SetTypeByDefaultValue(enable) }
 //	"a b c"
 func (v *Viper) SetTypeByDefaultValue(enable bool) {
 	v.typeByDefValue = enable
+}
+
+func SetKeepEmptyValue(enable bool) { v.SetKeepEmptyValue(enable) }
+
+func (v *Viper) SetKeepEmptyValue(enable bool) {
+	v.keepEmptyValue = enable
 }
 
 // GetViper gets the global Viper instance.
@@ -2099,7 +2114,7 @@ func (v *Viper) getSettings(keys []string) map[string]any {
 	// start from the list of keys, and construct the map one value at a time
 	for _, k := range keys {
 		value := v.Get(k)
-		if value == nil {
+		if value == nil && !v.keepEmptyValue {
 			// should not happen, since AllKeys() returns only keys holding a value,
 			// check just in case anything changes
 			continue
