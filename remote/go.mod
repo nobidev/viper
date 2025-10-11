@@ -1,12 +1,12 @@
-module github.com/spf13/viper/remote
+module github.com/nobidev/viper/remote
 
 go 1.23.8
 
-replace github.com/spf13/viper => ../
+replace github.com/nobidev/viper => ../
 
 require (
 	github.com/sagikazarmark/crypt v0.31.0
-	github.com/spf13/viper v1.21.0
+	github.com/nobidev/viper v1.21.0
 )
 
 require (
@@ -53,7 +53,7 @@ require (
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/sagikazarmark/locafero v0.11.0 // indirect
+	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect

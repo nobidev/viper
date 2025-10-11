@@ -42,7 +42,7 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/pflag"
 
-	"github.com/spf13/viper/internal/features"
+	"github.com/nobidev/viper/internal/features"
 )
 
 var v *Viper
