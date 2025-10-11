@@ -55,6 +55,38 @@ func init() {
 // mapstructure.DecoderConfig options.
 type DecoderConfigOption func(*mapstructure.DecoderConfig)
 
+func DecodeOptions(opts ...DecoderConfigOption) DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		for _, f := range opts {
+			f(c)
+		}
+	}
+}
+
+func DecodeTagName(name string) DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		c.TagName = name
+	}
+}
+
+func DecodeErrorUnused(enable bool) DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		c.ErrorUnused = enable
+	}
+}
+
+func DecodeDecodeNil(enable bool) DecoderConfigOption {
+	return func(c *mapstructure.DecoderConfig) {
+		c.DecodeNil = enable
+	}
+}
+
+func DecodeStrict() DecoderConfigOption {
+	return DecodeOptions(
+		DecodeErrorUnused(true),
+	)
+}
+
 // DecodeHook returns a DecoderConfigOption which overrides the default
 // DecoderConfig.DecodeHook value, the default is:
 //
@@ -66,6 +98,14 @@ func DecodeHook(hook mapstructure.DecodeHookFunc) DecoderConfigOption {
 	return func(c *mapstructure.DecoderConfig) {
 		c.DecodeHook = hook
 	}
+}
+
+func DecodeDefault() DecoderConfigOption {
+	return DecodeOptions(
+		DecodeTagName("viper"),
+		DecodeStrict(),
+		DecodeDecodeNil(true),
+	)
 }
 
 // Viper is a prioritized configuration registry. It
