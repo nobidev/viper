@@ -107,12 +107,17 @@ func DecodeHook(hook mapstructure.DecodeHookFunc) DecoderConfigOption {
 	}
 }
 
+func DecodeUnmarshallers() DecoderConfigOption {
+	return DecodeHook(mapstructure.TextUnmarshallerHookFunc())
+}
+
 func DecodeDefault() DecoderConfigOption {
 	return DecodeOptions(
 		DecodeTagName("viper"),
 		DecodeStrict(),
 		DecodeDecodeNil(true),
 		DecodeMethods(),
+		DecodeUnmarshallers(),
 	)
 }
 
